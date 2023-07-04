@@ -1,9 +1,14 @@
 <?php
+session_start();
 require_once "./core/Controlador.php";
 require_once "./modelos/Marca.php";
 class CtrlMarca extends Controlador
 {
     public function index(){
+        if (!isset($_SESSION['usuario'])){
+            header("Location: ?ctrl=CtrlEmpleado&accion=login");
+            exit();
+        }
         $accion = isset ($_GET['accion'])?$_GET['accion']:'mostrar';
 
         switch ($accion) {
@@ -35,7 +40,14 @@ class CtrlMarca extends Controlador
         $datos = array(
             'datos'=>$marca['data'][0]
         );
-        $this->mostrar('marcas/formNuevo.php',$datos);
+        $data= $this->mostrar('marcas/formNuevo.php',$datos,true);
+        
+        $datos = array(
+            'contenido'=>$data
+        );
+
+        $this->mostrar('principal.php',$datos);
+
     }
 
     public function guardar(){
@@ -54,7 +66,13 @@ class CtrlMarca extends Controlador
     }
 
     public function nuevo(){
-        $this->mostrar('marcas/formNuevo.php');
+        $data= $this->mostrar('marcas/formNuevo.php','',true);
+        $datos = array(
+            'contenido'=>$data
+        );
+
+        $this->mostrar('principal.php',$datos);
+
     }
 
     public function eliminar(){
@@ -68,10 +86,17 @@ class CtrlMarca extends Controlador
     public function select(){
         $m = new Marca('marcas');
         $marcas= $m->getAll();
-        $datos = array(
+        $datos1 = array(
             'datos'=>$marcas['data']
         );
 
-        $this->mostrar('marcas/mostrar.php',$datos);
+        $data = $this->mostrar('marcas/mostrar.php',$datos1,true);
+
+        $datos = array(
+            'contenido'=>$data
+        );
+
+        $this->mostrar('principal.php',$datos);
+
     }
 }

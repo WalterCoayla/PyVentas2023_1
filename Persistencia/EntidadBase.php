@@ -8,7 +8,7 @@ class EntidadBase
     private $_colWhere;
     private $_colOrderBy;
 
-    private $_sql;
+    protected $_sql;
  
     public function __construct($tabla) {
         $this->_tabla=(string) $tabla;

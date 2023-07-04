@@ -6,6 +6,10 @@ abstract class Index
         $controlador= isset($_GET["ctrl"])?$_GET["ctrl"]:"CtrlPrincipal";
 
         switch ($controlador) {
+            case 'CtrlEmpleado':
+                require_once "./controladores/CtrlEmpleado.php";
+                $c = new CtrlEmpleado();
+                break;
             case 'CtrlMarca':
                 require_once "./controladores/CtrlMarca.php";
                 $c = new CtrlMarca();

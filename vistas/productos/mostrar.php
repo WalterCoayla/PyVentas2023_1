@@ -7,31 +7,25 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-
 </head>
 <body>
-  
-<?php
-    if ($msg['titulo']!=''){ ?>
-      <div class="toast-container top-0 end-0 p-3">
-
-    <!-- Then put toasts within -->
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-body-secondary">just now</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        See? Just like this.
-      </div>
+    <?php
+    $tituloToast = ($msg['titulo']=='')?"Correcto":$msg['titulo'];
+    $mensajeToast = ($msg['cuerpo']=='')?"":$msg['cuerpo'];
+    ?>
+    <div class="position-fixed top-0 end-0 p-3" >
+    <div class="toast fade" role="alert" aria-live="polite" aria-atomic="true" data-bs-delay="1000" data-bs-autohide="false">
+        <div class="toast-header">
+            <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+            <strong class="me-auto"><?=$tituloToast?></strong>
+            <small class="text-body-secondary">justo ahora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <?=$mensajeToast?>
+        </div>
     </div>
     </div>
-
-<?php
-    }
-?>
 
     <h1>Productos</h1>
 <a href="?ctrl=CtrlProducto&accion=nuevo"> Nuevo Producto</a>
@@ -68,6 +62,38 @@
 
 <p></p>
 <a href="?">Retornar</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Mostrar el toast
+    $('.toast').toast('show');
+    // Iniciar la cuenta regresiva de 2 segundos
+    var countdown = 2000;
+    var interval = 10; // Intervalo de tiempo para actualizar el efecto de desvanecimiento (en milisegundos)
+
+    var fadeOut = setInterval(function() {
+      // Calcular la opacidad del toast en función del tiempo restante
+      var opacity = (countdown / 2000).toFixed(2);
+      $('.toast').css('opacity', opacity);
+
+      // Actualizar la cuenta regresiva
+      countdown -= interval;
+
+      // Verificar si el tiempo ha terminado
+      if (countdown < 0) {
+        clearInterval(fadeOut);
+
+        // Ocultar y eliminar el toast del DOM
+        toast.hide();
+        setTimeout(function() {
+          $('.toast').remove();
+        }, 500); // Esperar 500ms para permitir que se complete la animación de desvanecimiento
+      }
+    }, interval);
+  });
+</script>
+
 
 </body>
 </html>
