@@ -9,6 +9,7 @@
 <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="./assets/css/fontawesome-free-all.min.css">
 
+  <script src="./assets/js/jquery/jquery.min.js"></script>
 <!-- Theme style -->
   <link rel="stylesheet" href="./assets/css/adminlte.min.css">
 </head>
@@ -34,7 +35,13 @@
 <?php 
         require_once "./vistas/plantilla/pie.php";
         ?>
+
 <!-- AdminLTE App -->
+
 <script src="./assets/js/adminlte.js"></script>
+
+<script src="./assets/js/jsPdf/jspdf.debug.js"></script>
+<script src="./assets/js/jsPdf/jspdf.plugin.autotable3.1.1.min.js"></script>
+
 </body>
 </html>
